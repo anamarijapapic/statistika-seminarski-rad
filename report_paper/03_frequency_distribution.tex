@@ -1,0 +1,92 @@
+\section{Razdioba frekvencija}
+
+Nakon što je prvi korak statističke analize proveden, napravljena je razdioba frekvencija podataka. Podatci su grupirani u razrede koristeći intervale širine 5 dana, te su izračunate frekvencije, relativne frekvencije i kumulativne relativne frekvencije (prikazane tablično u tablicama \ref{tab:frequency} - \ref{tab:cumulativeRelativeFrequency}).
+
+\textbf{Frekvencija} predstavlja broj puta koliko se određena vrijednost pojavljuje ili se nalazi unutar određenog raspona u skupu podataka.
+
+\textbf{Relativna frekvencija} je omjer frekvencije određene vrijednosti i ukupnog broja podataka u skupu. Izražava se kao postotak ili decimalni broj.
+
+\textbf{Relativna kumulativna frekvencija} predstavlja kumulativni postotak ili udio podataka koji su manji ili jednaki određenoj vrijednosti ili intervalu. To se postiže zbrajanjem relativnih frekvencija određenih vrijednosti i svih prethodnih vrijednosti. Relativna kumulativna frekvencija za posljednju vrijednost uvijek će biti 1 (ili 100\% ako se izražava postotkom). Ova mjera pruža uvid u distribuciju podataka na kumulativnoj skali.
+
+\textbf{Frekvencijska tablica} je organizirani prikaz podataka koji pokazuje koliko često se pojedine vrijednosti ili rasponi vrijednosti pojavljuju u skupu podataka. Svaki red tablice predstavlja određeni interval ili kategoriju, a odgovarajuća vrijednost u tom retku predstavlja broj pojavljivanja ili frekvenciju tog intervala. U kontekstu statističke analize, frekvencijske tablice često se koriste za prikazivanje distribucije podataka.
+
+\textbf{Relativna frekvencijska tablica} je varijacija frekvencijske tablice u kojoj se frekvencije izražavaju kao udio ili postotak u odnosu na ukupan broj podataka. Ovo omogućuje usporedbu distribucije podataka između različitih skupova koji mogu imati različite veličine. Relativne frekvencije se dobivaju dijeljenjem frekvencije pojedinog intervala s ukupnim brojem podataka.
+
+\textbf{Relativna kumulativna frekvencijska tablica proširuje koncept} relativne frekvencijske tablice dodajući kumulativnu vrijednost. Kumulativna relativna frekvencija za svaki interval predstavlja zbroj relativnih frekvencija tog intervala i svih prethodnih intervala. Ova tablica pomaže u vizualizaciji kumulativne distribucije podataka, što znači koliko postotaka podataka leži ispod ili unutar određenog intervala.
+
+\begin{table}[H]
+\centering
+\caption{Frekvencijska tablica}
+\label{tab:frequency}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Razred} & \textbf{Frekvencija} \\
+\hline
+$(-0.001, 5.0]$ & 44 \\
+$(5.0, 10.0]$ & 54 \\
+$(10.0, 15.0]$ & 70 \\
+$(15.0, 20.0]$ & 64 \\
+$(20.0, 25.0]$ & 39 \\
+$(25.0, 30.0]$ & 29 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Tablica relativnih frekvencija}
+\label{tab:relativeFrequency}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Razred} & \textbf{Relativna frekvencija} \\
+\hline
+$(-0.001, 5.0]$ & 0.146667 \\
+$(5.0, 10.0]$ & 0.180000 \\
+$(10.0, 15.0]$ & 0.233333 \\
+$(15.0, 20.0]$ & 0.213333 \\
+$(20.0, 25.0]$ & 0.130000 \\
+$(25.0, 30.0]$ & 0.096667 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Tablica kumulativnih relativnih frekvencija}
+\label{tab:cumulativeRelativeFrequency}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Razred} & \textbf{Kumulativna relativna frekvencija} \\
+\hline
+$(-0.001, 5.0]$ & 0.146667 \\
+$(5.0, 10.0]$ & 0.326667 \\
+$(10.0, 15.0]$ & 0.560000 \\
+$(15.0, 20.0]$ & 0.773333 \\
+$(20.0, 25.0]$ & 0.903333 \\
+$(25.0, 30.0]$ & 1.000000 \\
+\hline
+\end{tabular}
+\end{table}
+
+Ove tablice prikazuju frekvencije i relativne frekvencije za svaki interval, kao i kumulativne relativne frekvencije koje se akumuliraju kako se krećemo kroz intervale.
+
+Ovi rezultati pružaju uvid u distribuciju podataka prema vremenskim intervalima u trajanju 5 dana.
+
+Prethodno prezentirane tablice rezultat su k\^oda prikazanog u ispisu~\ref{frequencyDistribution}.
+
+\begin{lstlisting}[caption={Razdioba frekvencija}, label=frequencyDistribution]
+# 2. Razdioba frekvencija
+bins = range(0, 35, 5)
+frequency_table = pd.Series(pd.cut(data['Vrijeme'], bins=bins, include_lowest=True)).value_counts().sort_index()
+relative_frequency = frequency_table / len(data)
+cumulative_relative_frequency = relative_frequency.cumsum()
+
+print("\nFrekvencijska tablica:")
+print(frequency_table)
+
+print("\nRelativna frekvencija:")
+print(relative_frequency)
+
+print("\nKumulativna relativna frekvencija:")
+print(cumulative_relative_frequency)
+\end{lstlisting}

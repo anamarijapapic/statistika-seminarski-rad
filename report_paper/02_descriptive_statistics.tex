@@ -1,0 +1,78 @@
+\section{Deskriptivna statistika}
+
+\textbf{Deskriptivna (opisna) statistika} je grana statistike koja se bavi obrađivanjem dobivenih podataka, te u kojoj se isti opisuju te predočuju tablicama i grafikonima.
+
+Iz \textbf{populacije} je izdvojen \textbf{uzorak (podskup)} veličine 300 nezaposlenih na kojem je promatrano samo jedno svojstvo - statističko obilježje \(X = "vrijeme \ (u \ danima)"\) te je statistička varijabla \(X\) numerička (kvantitativna).
+
+U ispisu~\ref{getData} prikazano je čitanje podataka iz Excel datoteke i konverzija istih u numeričke vrijednosti.
+
+\begin{lstlisting}[caption={Pristup podatcima iz \texttt{p10.xlsx} Excel datoteke}, label=getData]
+# Citanje podataka iz Excel datoteke
+data = pd.read_excel('p10.xlsx', usecols=[0], names=['Vrijeme'])
+
+# Konverzija stupca 'Vrijeme' u numericki format
+data['Vrijeme'] = pd.to_numeric(data['Vrijeme'], errors='coerce')
+\end{lstlisting}
+
+U ovom koraku provedene analize, izračunate su osnovne mjere središnje tendencije: aritmetička sredina (srednja vrijednost), mod, medijan te mjere raspršenosti (disperzije): varijanca, standardna devijacija, interkvartilni raspon, raspon uzorka.
+
+\textbf{Aritmetička sredina (srednja vrijednost)} jest suma svih vrijednosti u skupu podataka podijeljena s brojem tih vrijednosti. Predstavlja "prosječnu" vrijednost u skupu.
+
+\textbf{Mod} je vrijednost koja se najčešće pojavljuje u skupu podataka.
+
+\textbf{Medijan} je središnja vrijednost u uređenom skupu podataka. Polovina podataka je ispod, a polovina iznad medijana. Otporna je na ekstremne vrijednosti.
+
+\textbf{Varijanca} je mjera koja prikazuje koliko su pojedinačne vrijednosti u skupu podataka raspršene u odnosu na aritmetičku sredinu. Izračunava se kao prosječna kvadratna udaljenost svake vrijednosti od aritmetičke sredine.
+
+\textbf{Standardna devijacija} je kvadratni korijen varijance. Praktičnija je za interpretaciju jer je izražena u istim jedinicama kao i podatci.
+
+\textbf{Interkvartilni raspon} je raspon vrijednosti između prvog kvartila (25\% podataka) i trećeg kvartila (75\% podataka) u uređenom skupu podataka.
+
+\textbf{Raspon uzorka} označava razliku između najveće i najmanje vrijednosti u skupu podataka.
+
+Ove mjere pružaju uvid u različite aspekte distribucije podataka i omogućuju bolje razumijevanje njihove središnje tendencije i raspršenosti. Aritmetička sredina, mod i medijan daju informacije o središnjoj tendenciji, dok varijanca, standardna devijacija, interkvartilni raspon i raspon uzorka pružaju informacije o raspršenosti podataka.
+
+Za izračun i ispis prethodno spomenutih vrijednosti napisan je k\^od prikazan u ispisu~\ref{descriptiveStatistics}.
+
+\begin{lstlisting}[caption={Izračun i ispis traženih osnovnih pojmova statističke analize podataka}, label=descriptiveStatistics]
+# 1. Deskriptivna statistika
+mean = np.mean(data['Vrijeme'])
+mode = stats.mode(data['Vrijeme'])
+median = np.median(data['Vrijeme'])
+five_number_summary = np.percentile(data['Vrijeme'], [0, 25, 50, 75, 100])
+variance = np.var(data['Vrijeme'])
+std_deviation = np.std(data['Vrijeme'])
+interquartile_range = np.percentile(data['Vrijeme'], 75) - np.percentile(data['Vrijeme'], 25)
+data_range = np.max(data['Vrijeme']) - np.min(data['Vrijeme'])
+
+print(f"Srednja vrijednost: {mean}")
+print(f"Mod: {mode} sto znaci da je vrijednost {mode[0]} najfrekventnija vrijednost i pojavljuje se {mode[1]} put.",)
+print(f"Medijan: {median}")
+print(f"Karakteristicna petorka uzorka: {five_number_summary}")
+print(f"Varijanca: {variance}")
+print(f"Standardna devijacija: {std_deviation}")
+print(f"Interkvartil: {interquartile_range}")
+print(f"Raspon uzorka: {data_range}")
+\end{lstlisting}
+
+Dobivene su sljedeće vrijednosti:
+\begin{align*}
+\text{Srednja vrijednost} &: 14.4 \\
+\text{Mod} &: 14 \ (\text{pojavljuje se 21 put}) \\
+\text{Medijan} &: 14.0 \\
+\text{Karakteristična petorka uzorka} &: [0.0, 8.0, 14.0, 20.0, 30.0] \\
+\text{Varijanca} &: 60.27333333333325 \\
+\text{Standardna devijacija} &: 7.7635902347646635 \\
+\text{Interkvartil} &: 12.0 \\
+\text{Raspon uzorka} &: 30.0 \\
+\end{align*}
+
+Dakle, dobiveni podatci imaju srednju vrijednost od 14.4, što znači da je prosječna vrijednost skupa podataka oko 14.4. Najčešća vrijednost (mod) u skupu podataka je 14, pojavljujući se čak 21 put, što ukazuje na izraženu koncentraciju podataka oko te vrijednosti.
+
+Srednja vrijednost i medijan su bliski, pri čemu je medijan jednak 14.0. To sugerira da je polovina podataka manja od 14.0, dok je druga polovina veća od te vrijednosti.
+
+Karakteristična petorka uzorka ([0.0, 8.0, 14.0, 20.0, 30.0]) pruža ključne vrijednosti koje karakteriziraju raspodjelu podataka, uključujući minimum (0.0), prvi kvartil (Q1 - 8.0), medijan (14.0), treći kvartil (Q3 - 20.0) i maksimum (30.0).
+
+Raspršenost podataka je izražena varijancom od 60.27 i standardnom devijacijom od 7.76. Ove vrijednosti ukazuju na to da su podaci razmjerno raspršeni u odnosu na srednju vrijednost.
+
+Interkvartilni raspon iznosi 12.0, što znači da se srednja polovina podataka nalazi unutar tog raspona. Raspon uzorka, koji označava razliku između maksimalne i minimalne vrijednosti, iznosi 30.0.

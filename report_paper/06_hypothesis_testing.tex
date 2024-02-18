@@ -1,0 +1,51 @@
+\section{Testiranje hipoteza}
+
+Postavljena je hipoteza o očekivanju populacije, te je proveden t-test za testiranje hipoteze.
+
+K\^od je prikazan u ispisu~\ref{testing}.
+
+\begin{lstlisting}[caption={Testiranje hipoteza}, label=testing]
+# 5. Testiranje hipoteze
+# Npr. testiranje hipoteze o prosjecnom vremenu provedenom na Zavodu za zaposljavanje cekajuci posao
+# Koristi se t-test
+alpha = 0.05
+t_statistic, p_value = stats.ttest_1samp(data['Vrijeme'], popmean=15)
+
+print("\nTestiranje hipoteza:")
+print(f"T-statistika: {t_statistic}")
+print(f"P-vrijednost: {p_value}")
+
+if p_value < alpha:
+    print("Odbacujemo nultu hipotezu.")
+else:
+    print("Ne mozemo odbaciti nultu hipotezu.")
+\end{lstlisting}
+
+Dakle, proveli smo testiranje hipoteza vezano uz srednju vrijednost populacije (\( \mu \)). Hipoteze su sljedeće:
+
+\[
+\begin{aligned}
+& H_0: \mu = 15 \\
+& H_1: \mu \neq 15 \\
+\end{aligned}
+\]
+
+Rezultati testa su sljedeći:
+
+\[
+\begin{aligned}
+& \text{T-statistika}:-1.3363623743324509 \\
+& \text{P-vrijednost}:0.18244692949663507 \\
+\end{aligned}
+\]
+
+\newpage
+
+\begin{enumerate}
+  \item \textbf{T-statistika:}\\
+T-statistika predstavlja mjeru koliko se srednja vrijednost uzorka razlikuje od srednje vrijednosti populacije iz nulte hipoteze, izraženo u standardnim devijacijama. Negativna vrijednost ukazuje na to da je srednja vrijednost uzorka manja od pretpostavljene srednje vrijednosti populacije.
+  \item \textbf{P-vrijednost:}\\
+P-vrijednost je vjerojatnost da bismo dobili rezultate testa (ili ekstremnije) ako je nulta hipoteza istinita. Ako je p-vrijednost mala (obično manja od odabrane razine značajnosti, npr. 0.05), obično odbacujemo nultu hipotezu. Ako je p-vrijednost visoka, zadržavamo nultu hipotezu.
+\end{enumerate}
+
+Budući da je p-vrijednost (0.182) veća od odabrane razine značajnosti $\alpha = 0.05$, ne možemo odbaciti nultu hipotezu. To sugerira da nema dovoljno statističkih dokaza da se tvrdi da je očekivanje populacije različito od 15 dana.

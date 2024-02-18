@@ -1,0 +1,25 @@
+\section{Interval povjerenja}
+
+\textbf{Interval povjerenja} je statistički pojam koji se koristi za procjenu nesigurnosti u vezi s procjenama parametara populacije na temelju uzorka podataka. To je raspon vrijednosti koji sadrži procijenjenu vrijednost parametra s određenom vjerojatnošću. Interval povjerenja ovisi o razinama pouzdanja, a uobičajene razine pouzdanja su 90\%, 95\% ili 99\%, ovisno o željenoj razini sigurnosti. Na način prikazan u ispisu~\ref{confidenceInterval} izračunati su sljedeći intervali povjerenja za očekivanje populacije s pouzdanošću od 90\%, 95\% i 99\%:
+
+\begin{lstlisting}[caption={Izračun intervala povjerenja (90\%, 95\% i 99\%)}, label=confidenceInterval]
+# 4. Interval povjerenja
+confidence_interval = stats.norm.interval(0.90, loc=mean, scale=std_deviation/np.sqrt(len(data)))
+print(f"\nInterval povjerenja (90%): {confidence_interval}")
+
+confidence_interval = stats.norm.interval(0.95, loc=mean, scale=std_deviation/np.sqrt(len(data)))
+print(f"Interval povjerenja (95%): {confidence_interval}")
+
+confidence_interval = stats.norm.interval(0.99, loc=mean, scale=std_deviation/np.sqrt(len(data)))
+print(f"Interval povjerenja (99%): {confidence_interval}")
+\end{lstlisting}
+
+\[
+\begin{aligned}
+\text{Interval povjerenja (90\%)} &: (13.662725463940534, 15.137274536059467) \\
+\text{Interval povjerenja (95\%)} &: (13.521483204512723, 15.278516795487278) \\
+\text{Interval povjerenja (99\%)} &: (13.24543322054612, 15.55456677945388)
+\end{aligned}
+\]
+
+Ovi intervali pružaju informaciju o tome gdje se s velikom vjerojatnošću nalazi stvarna vrijednost očekivanja populacije. Općenito, razina pouzdanja odražava koliko smo sigurni u točnost intervala povjerenja. Što je razina pouzdanja viša, to je interval širi, ali pruža veću sigurnost da sadrži stvarnu vrijednost parametra. Obratno, niža razina pouzdanja rezultira užim intervalom, ali manjom sigurnošću.
